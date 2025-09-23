@@ -31,7 +31,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -90,7 +89,9 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
+//  HAL_TIM_Base_Start_IT(&htim2);
+  int state = 0;
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,6 +101,35 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  switch(state) {
+	  case 0: // INIT
+		  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
+		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
+		  counter = 200;
+		  state = 1;
+		  break;
+	  case 1: // RED
+		  --counter;
+		  if (counter <= 0) {
+		 	HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);
+		 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
+		 	counter = 200;
+		 	state = 2;
+		  }
+		  break;
+	  case 2: // YELLOW
+		  --counter;
+		  if (counter <= 0) {
+			 HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
+			 HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);
+			 counter = 200;
+			 state = 1;
+		  }
+	  	  break;
+	  default:
+	  	  break;
+	  }
+	  HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
@@ -211,22 +241,22 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 200;
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if (counter > 0) {
-		counter--;
-		if (counter <= 0) {
-			counter = 200;
-			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-		}
-	}
-}
+//int counter = 200;
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+//	if (counter > 0) {
+//		counter--;
+//		if (counter <= 0) {
+//			counter = 200;
+//			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+//		}
+//	}
+//}
 /* USER CODE END 4 */
 
 /**
