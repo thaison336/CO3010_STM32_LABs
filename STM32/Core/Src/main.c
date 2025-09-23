@@ -105,7 +105,8 @@ int main(void)
 	  case 0: // INIT
 		  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
 		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		  counter = 200;
+		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
+		  counter = 100;
 		  state = 1;
 		  break;
 	  case 1: // RED
@@ -113,7 +114,8 @@ int main(void)
 		  if (counter <= 0) {
 		 	HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);
 		 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		 	counter = 200;
+		 	HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
+		 	counter = 500;
 		 	state = 2;
 		  }
 		  break;
@@ -122,10 +124,21 @@ int main(void)
 		  if (counter <= 0) {
 			 HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
 			 HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);
+			 HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
 			 counter = 200;
-			 state = 1;
+			 state = 3;
 		  }
 	  	  break;
+	  case 3: // GREEN, next is RED for 5s
+	  		--counter;
+	  	 if (counter <= 0) {
+	  		HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
+	  		HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
+	  		HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 0);
+	  		counter = 300;
+	  		state = 1;
+	  	 }
+	  	 break;
 	  default:
 	  	  break;
 	  }
@@ -231,10 +244,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
+  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
