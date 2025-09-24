@@ -116,7 +116,7 @@ int main(void)
 		 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
 		 	HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
 		 	counter = 5;
-		 	state = 2;
+		 	state = 3;
 		  }
 		  break;
 	  case 2: // YELLOW
@@ -126,7 +126,7 @@ int main(void)
 			 HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);
 			 HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
 			 counter = 2;
-			 state = 3;
+			 state = 1;
 		  }
 	  	  break;
 	  case 3: // GREEN, next is RED for 5s
@@ -136,7 +136,7 @@ int main(void)
 	  		HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
 	  		HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 0);
 	  		counter = 3;
-	  		state = 1;
+	  		state = 2;
 	  	 }
 	  	 break;
 	  default:

@@ -186,8 +186,8 @@ int main(void)
 		 	counter = 5;
  80001da:	2305      	movs	r3, #5
  80001dc:	603b      	str	r3, [r7, #0]
-		 	state = 2;
- 80001de:	2302      	movs	r3, #2
+		 	state = 3;
+ 80001de:	2303      	movs	r3, #3
  80001e0:	607b      	str	r3, [r7, #4]
 		  }
 		  break;
@@ -219,8 +219,8 @@ int main(void)
 			 counter = 2;
  800020e:	2302      	movs	r3, #2
  8000210:	603b      	str	r3, [r7, #0]
-			 state = 3;
- 8000212:	2303      	movs	r3, #3
+			 state = 1;
+ 8000212:	2301      	movs	r3, #1
  8000214:	607b      	str	r3, [r7, #4]
 		  }
 	  	  break;
@@ -252,8 +252,8 @@ int main(void)
 	  		counter = 3;
  8000242:	2303      	movs	r3, #3
  8000244:	603b      	str	r3, [r7, #0]
-	  		state = 1;
- 8000246:	2301      	movs	r3, #1
+	  		state = 2;
+ 8000246:	2302      	movs	r3, #2
  8000248:	607b      	str	r3, [r7, #4]
 	  	 }
 	  	 break;
