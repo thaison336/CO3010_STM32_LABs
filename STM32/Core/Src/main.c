@@ -43,7 +43,14 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
+uint16_t ledPins[] = {
+    GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9,
+    GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15
+};
+const int NUM_LEDS = 12;
 
+uint32_t lastToggleTime = 0;
+GPIO_PinState currentState = GPIO_PIN_RESET;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,6 +98,10 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  for (int i = 0; i < NUM_LEDS; ++i) {
+      HAL_GPIO_WritePin(GPIOA, ledPins[i], GPIO_PIN_RESET);
+  }
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,6 +111,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	 if (counter > 11) counter = 0;
+	 HAL_GPIO_TogglePin(GPIOA, ledPins[counter++]);
+	 HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }
@@ -201,32 +215,38 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin
+                          |LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
+  /*Configure GPIO pins : LED_0_Pin LED_1_Pin LED_2_Pin LED_3_Pin
+                           LED_4_Pin LED_5_Pin LED_6_Pin LED_7_Pin
+                           LED_8_Pin LED_9_Pin LED_10_Pin LED_11_Pin */
+  GPIO_InitStruct.Pin = LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin
+                          |LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 200;
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if (counter > 0) {
-		counter--;
-		if (counter <= 0) {
-			counter = 200;
-			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-		}
-	}
-}
+//int counter = 200;
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+//	if (counter > 0) {
+//		counter--;
+//		if (counter <= 0) {
+//			counter = 200;
+//			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+//		}
+//	}
+//}
 /* USER CODE END 4 */
 
 /**
