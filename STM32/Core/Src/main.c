@@ -48,9 +48,13 @@ uint16_t ledPins[] = {
     GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15
 };
 const int NUM_LEDS = 12;
-
-uint32_t lastToggleTime = 0;
-GPIO_PinState currentState = GPIO_PIN_RESET;
+void clearAllClock();
+void setNumberOnClock(int num);
+void clearNumberOnClock(int num);
+void clockDisplay();
+int second = 0;
+int minute = 0;
+int hour = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,11 +101,8 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
-  for (int i = 0; i < NUM_LEDS; ++i) {
-      HAL_GPIO_WritePin(GPIOA, ledPins[i], GPIO_PIN_RESET);
-  }
-  int counter = 0;
+//  HAL_TIM_Base_Start_IT(&htim2);
+  clearAllClock();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,9 +112,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	 if (counter > 11) counter = 0;
-	 HAL_GPIO_TogglePin(GPIOA, ledPins[counter++]);
-	 HAL_Delay(200);
+	 clockDisplay();
+	 HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -247,6 +247,43 @@ static void MX_GPIO_Init(void)
 //		}
 //	}
 //}
+void clearAllClock(){
+	//TODO Turn off all 12 LEDs
+	for (int i = 0; i < NUM_LEDS; ++i) {
+	      HAL_GPIO_WritePin(GPIOA, ledPins[i], GPIO_PIN_SET);
+	}
+}
+void setNumberOnClock(int num){
+	 if (num >= 0 && num < NUM_LEDS) {
+	      HAL_GPIO_WritePin(GPIOA, ledPins[num], GPIO_PIN_RESET);
+	 }
+}
+void clearNumberOnClock(int num){
+	if (num >= 0 && num < NUM_LEDS) {
+		  HAL_GPIO_WritePin(GPIOA, ledPins[num], GPIO_PIN_SET);
+	}
+}
+void clockDisplay() {
+    for (int i = 0; i < 12; ++i) {
+        clearNumberOnClock(i);
+    }
+    setNumberOnClock(second / 5);
+    setNumberOnClock(minute / 5);
+    setNumberOnClock(hour);
+
+    ++second;
+    if (second >= 60) {
+        second = 0;
+        ++minute;
+        if (minute >= 60) {
+            minute = 0;
+            ++hour;
+            if (hour >= 12) {
+                hour = 0;
+            }
+        }
+    }
+}
 /* USER CODE END 4 */
 
 /**
