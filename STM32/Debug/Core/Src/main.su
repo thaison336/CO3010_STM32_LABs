@@ -1,8 +1,6 @@
-../Core/Src/main.c:70:5:main	16	static
-../Core/Src/main.c:161:6:SystemClock_Config	72	static
-../Core/Src/main.c:198:13:MX_TIM2_Init	32	static
-../Core/Src/main.c:243:13:MX_GPIO_Init	32	static
-../Core/Src/main.c:282:6:SET_LED	16	static
-../Core/Src/main.c:299:6:RESET_LED	16	static
-../Core/Src/main.c:315:6:TOGGLE_LED	16	static
-../Core/Src/main.c:337:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:71:5:main	16	static
+../Core/Src/main.c:164:6:SystemClock_Config	72	static
+../Core/Src/main.c:201:13:MX_TIM2_Init	32	static
+../Core/Src/main.c:246:13:MX_GPIO_Init	32	static
+../Core/Src/main.c:348:6:display7SEG	16	static
+../Core/Src/main.c:467:6:Error_Handler	4	static,ignoring_inline_asm
