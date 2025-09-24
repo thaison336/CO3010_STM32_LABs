@@ -1,5 +1,8 @@
-../Core/Src/main.c:65:5:main	8
-../Core/Src/main.c:154:6:SystemClock_Config	3
-../Core/Src/main.c:191:13:MX_TIM2_Init	4
-../Core/Src/main.c:236:13:MX_GPIO_Init	1
-../Core/Src/main.c:279:6:Error_Handler	1
+../Core/Src/main.c:70:5:main	8
+../Core/Src/main.c:161:6:SystemClock_Config	3
+../Core/Src/main.c:198:13:MX_TIM2_Init	4
+../Core/Src/main.c:243:13:MX_GPIO_Init	1
+../Core/Src/main.c:282:6:SET_LED	5
+../Core/Src/main.c:299:6:RESET_LED	5
+../Core/Src/main.c:315:6:TOGGLE_LED	5
+../Core/Src/main.c:337:6:Error_Handler	1

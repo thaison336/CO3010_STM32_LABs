@@ -31,6 +31,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define red 1
+#define yellow 2
+#define green 3
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +53,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
-
+void SET_LED(int color);
+void RESET_LED(int color);
+void TOGGLE_LED(int color);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -102,46 +107,48 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  switch(state) {
-	  case 0: // INIT
-		  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
-		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
-		  counter = 1;
-		  state = 1;
-		  break;
-	  case 1: // RED
-		  --counter;
-		  if (counter <= 0) {
-		 	HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);
-		 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		 	HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
-		 	counter = 5;
-		 	state = 2;
-		  }
-		  break;
-	  case 2: // YELLOW
-		  --counter;
-		  if (counter <= 0) {
-			 HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
-			 HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);
-			 HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 1);
-			 counter = 2;
-			 state = 3;
-		  }
-	  	  break;
-	  case 3: // GREEN, next is RED for 5s
-	  		--counter;
-	  	 if (counter <= 0) {
-	  		HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
-	  		HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-	  		HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 0);
-	  		counter = 3;
-	  		state = 1;
-	  	 }
-	  	 break;
-	  default:
-	  	  break;
+	      case 0:
+	          RESET_LED(red);
+	          SET_LED(yellow);
+	          SET_LED(green);
+	          counter = 5;
+	          state = red;
+	          break;
+
+	      case red:
+	          --counter;
+	          if (counter <= 0) {
+	              TOGGLE_LED(red);
+	              TOGGLE_LED(green);
+	              counter = 5;
+	              state = green;
+	          }
+	          break;
+
+	      case green:
+	          --counter;
+	          if (counter <= 0) {
+	              TOGGLE_LED(green);
+	              TOGGLE_LED(yellow);
+	              counter = 2;
+	              state = yellow;
+	          }
+	          break;
+
+	      case yellow:
+	          --counter;
+	          if (counter <= 0) {
+	              TOGGLE_LED(yellow);
+	              TOGGLE_LED(red);
+	              counter = 5;
+	              state = red;
+	          }
+	          break;
+
+	      default:
+	          break;
 	  }
+	  HAL_GPIO_TogglePin(LED_PA5_GPIO_Port, LED_PA5_Pin);
 	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
@@ -244,10 +251,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_PA5_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin|LED_5_Pin|LED_6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_PA5_Pin LED_1_Pin LED_2_Pin LED_3_Pin
+                           LED_4_Pin LED_5_Pin LED_6_Pin */
+  GPIO_InitStruct.Pin = LED_PA5_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
+                          |LED_4_Pin|LED_5_Pin|LED_6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -259,17 +269,65 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//int counter = 200;
+//int counter = 100;
 //void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //	if (counter > 0) {
 //		counter--;
 //		if (counter <= 0) {
-//			counter = 200;
-//			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+//			counter = 100;
+//			HAL_GPIO_TogglePin(LED_PA5_GPIO_Port, LED_PA5_Pin);
 //		}
 //	}
 //}
+void SET_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 1);
+		break;
+	case yellow:
+		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 1);
+		break;
+	case green:
+		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 1);
+		break;
+	}
+}
+
+void RESET_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 0);
+		break;
+	case yellow:
+		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 0);
+		break;
+	case green:
+		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 0);
+		break;
+	}
+}
+void TOGGLE_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_TogglePin(GPIOA, LED_1_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_4_Pin);
+		break;
+	case yellow:
+		HAL_GPIO_TogglePin(GPIOA, LED_2_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_5_Pin);
+		break;
+	case green:
+		HAL_GPIO_TogglePin(GPIOA, LED_3_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_6_Pin);
+		break;
+	}
+}
 /* USER CODE END 4 */
 
 /**
