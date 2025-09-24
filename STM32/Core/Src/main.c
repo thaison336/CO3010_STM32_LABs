@@ -96,7 +96,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_TIM_Base_Start_IT(&htim2);
-//  int state = 0;
+  int state = 0;
   int counter = 0;
   /* USER CODE END 2 */
 
@@ -107,50 +107,50 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  switch(state) {
-//	      case 0:
-//	          RESET_LED(red);
-//	          SET_LED(yellow);
-//	          SET_LED(green);
-//	          counter = 5;
-//	          state = red;
-//	          break;
-//
-//	      case red:
-//	          --counter;
-//	          if (counter <= 0) {
-//	              TOGGLE_LED(red);
-//	              TOGGLE_LED(green);
-//	              counter = 5;
-//	              state = green;
-//	          }
-//	          break;
-//
-//	      case green:
-//	          --counter;
-//	          if (counter <= 0) {
-//	              TOGGLE_LED(green);
-//	              TOGGLE_LED(yellow);
-//	              counter = 2;
-//	              state = yellow;
-//	          }
-//	          break;
-//
-//	      case yellow:
-//	          --counter;
-//	          if (counter <= 0) {
-//	              TOGGLE_LED(yellow);
-//	              TOGGLE_LED(red);
-//	              counter = 5;
-//	              state = red;
-//	          }
-//	          break;
-//
-//	      default:
-//	          break;
-//	  }
-	  if (counter >= 10) counter = 0;
-	  display7SEG(counter++);
+	  switch(state) {
+	      case 0:
+	          RESET_LED(red);
+	          SET_LED(yellow);
+	          SET_LED(green);
+	          counter = 5;
+	          state = red;
+	          break;
+
+	      case red:
+	    	  display7SEG(counter-- -1);
+	          if (counter <= 0) {
+	              TOGGLE_LED(red);
+	              TOGGLE_LED(green);
+	              counter = 3;
+	              state = green;
+	          }
+	          break;
+
+	      case green:
+	    	  display7SEG(counter-- -1);
+	          if (counter <= 0) {
+	              TOGGLE_LED(green);
+	              TOGGLE_LED(yellow);
+	              counter = 2;
+	              state = yellow;
+	          }
+	          break;
+
+	      case yellow:
+	          display7SEG(counter-- -1);
+	          if (counter <= 0) {
+	              TOGGLE_LED(yellow);
+	              TOGGLE_LED(red);
+	              counter = 5;
+	              state = red;
+	          }
+	          break;
+
+	      default:
+	          break;
+	  }
+//	  if (counter >= 10) counter = 0;
+//	  display7SEG(counter++);
 	  HAL_GPIO_TogglePin(LED_PA5_GPIO_Port, LED_PA5_Pin);
 	  HAL_Delay(1000);
   }
@@ -281,7 +281,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
-//  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_PA5_Pin, GPIO_PIN_SET);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
@@ -296,55 +296,55 @@ static void MX_GPIO_Init(void)
 //		}
 //	}
 //}
-//void SET_LED(int color) {
-//	switch(color) {
-//	case red:
-//		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 1);
-//		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 1);
-//		break;
-//	case yellow:
-//		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 1);
-//		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 1);
-//		break;
-//	case green:
-//		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 1);
-//		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 1);
-//		break;
-//	}
-//}
-//
-//void RESET_LED(int color) {
-//	switch(color) {
-//	case red:
-//		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 0);
-//		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 0);
-//		break;
-//	case yellow:
-//		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 0);
-//		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 0);
-//		break;
-//	case green:
-//		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 0);
-//		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 0);
-//		break;
-//	}
-//}
-//void TOGGLE_LED(int color) {
-//	switch(color) {
-//	case red:
-//		HAL_GPIO_TogglePin(GPIOA, LED_1_Pin);
-//		HAL_GPIO_TogglePin(GPIOA, LED_4_Pin);
-//		break;
-//	case yellow:
-//		HAL_GPIO_TogglePin(GPIOA, LED_2_Pin);
-//		HAL_GPIO_TogglePin(GPIOA, LED_5_Pin);
-//		break;
-//	case green:
-//		HAL_GPIO_TogglePin(GPIOA, LED_3_Pin);
-//		HAL_GPIO_TogglePin(GPIOA, LED_6_Pin);
-//		break;
-//	}
-//}
+void SET_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 1);
+		break;
+	case yellow:
+		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 1);
+		break;
+	case green:
+		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 1);
+		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 1);
+		break;
+	}
+}
+
+void RESET_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_WritePin(GPIOA, LED_1_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_4_Pin, 0);
+		break;
+	case yellow:
+		HAL_GPIO_WritePin(GPIOA, LED_2_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_5_Pin, 0);
+		break;
+	case green:
+		HAL_GPIO_WritePin(GPIOA, LED_3_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, LED_6_Pin, 0);
+		break;
+	}
+}
+void TOGGLE_LED(int color) {
+	switch(color) {
+	case red:
+		HAL_GPIO_TogglePin(GPIOA, LED_1_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_4_Pin);
+		break;
+	case yellow:
+		HAL_GPIO_TogglePin(GPIOA, LED_2_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_5_Pin);
+		break;
+	case green:
+		HAL_GPIO_TogglePin(GPIOA, LED_3_Pin);
+		HAL_GPIO_TogglePin(GPIOA, LED_6_Pin);
+		break;
+	}
+}
 void display7SEG(int num) {
     switch(num) {
         case 0:
