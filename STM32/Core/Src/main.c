@@ -105,7 +105,7 @@ int main(void)
 	  case 0: // INIT
 		  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
 		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		  counter = 200;
+		  counter = 2;
 		  state = 1;
 		  break;
 	  case 1: // RED
@@ -113,7 +113,7 @@ int main(void)
 		  if (counter <= 0) {
 		 	HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);
 		 	HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1);
-		 	counter = 200;
+		 	counter = 2;
 		 	state = 2;
 		  }
 		  break;
@@ -122,14 +122,14 @@ int main(void)
 		  if (counter <= 0) {
 			 HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
 			 HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);
-			 counter = 200;
+			 counter = 2;
 			 state = 1;
 		  }
 	  	  break;
 	  default:
 	  	  break;
 	  }
-	  HAL_Delay(10);
+	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
