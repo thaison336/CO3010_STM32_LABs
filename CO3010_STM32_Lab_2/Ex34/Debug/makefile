@@ -34,37 +34,37 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := lab2_ex3
+BUILD_ARTIFACT_NAME := lab2_ex34
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-lab2_ex3.elf \
+lab2_ex34.elf \
 
 MAP_FILES += \
-lab2_ex3.map \
+lab2_ex34.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-lab2_ex3.list \
+lab2_ex34.list \
 
 OBJCOPY_HEX += \
-lab2_ex3.hex \
+lab2_ex34.hex \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: lab2_ex3.elf secondary-outputs
+main-build: lab2_ex34.elf secondary-outputs
 
 # Tool invocations
-lab2_ex3.elf lab2_ex3.map: $(OBJS) $(USER_OBJS) C:\Users\DELL\Documents\.HCMUT_HK251\06.Vi_xu_ly_Vi_dieu_khien_VXL_VDK_MPU_MCU_CO3010\VXL_VDK_MPU_MCU_LAB\CO3010_STM32_Lab_2\Ex3\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "lab2_ex3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\DELL\Documents\.HCMUT_HK251\06.Vi_xu_ly_Vi_dieu_khien_VXL_VDK_MPU_MCU_CO3010\VXL_VDK_MPU_MCU_LAB\CO3010_STM32_Lab_2\Ex3\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2_ex3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+lab2_ex34.elf lab2_ex34.map: $(OBJS) $(USER_OBJS) C:\Users\DELL\Documents\_PROJECTS\GitHub\CO3010_STM32_LABs\CO3010_STM32_Lab_2\Ex34\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "lab2_ex34.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\DELL\Documents\_PROJECTS\GitHub\CO3010_STM32_LABs\CO3010_STM32_Lab_2\Ex34\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2_ex34.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -73,19 +73,19 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-lab2_ex3.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "lab2_ex3.list"
+lab2_ex34.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "lab2_ex34.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-lab2_ex3.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "lab2_ex3.hex"
+lab2_ex34.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "lab2_ex34.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout lab2_ex3.elf lab2_ex3.hex lab2_ex3.list lab2_ex3.map
+	-$(RM) default.size.stdout lab2_ex34.elf lab2_ex34.hex lab2_ex34.list lab2_ex34.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)

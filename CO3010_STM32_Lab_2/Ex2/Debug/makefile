@@ -63,8 +63,8 @@ all: main-build
 main-build: lab2_ex2.elf secondary-outputs
 
 # Tool invocations
-lab2_ex2.elf lab2_ex2.map: $(OBJS) $(USER_OBJS) C:\Users\DELL\Documents\.HCMUT_HK251\06.Vi_xu_ly_Vi_dieu_khien_VXL_VDK_MPU_MCU_CO3010\VXL_VDK_MPU_MCU_LAB\CO3010_STM32_Lab_2\Ex2-3\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "lab2_ex2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\DELL\Documents\.HCMUT_HK251\06.Vi_xu_ly_Vi_dieu_khien_VXL_VDK_MPU_MCU_CO3010\VXL_VDK_MPU_MCU_LAB\CO3010_STM32_Lab_2\Ex2-3\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2_ex2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+lab2_ex2.elf lab2_ex2.map: $(OBJS) $(USER_OBJS) C:\Users\DELL\Documents\_PROJECTS\GitHub\CO3010_STM32_LABs\CO3010_STM32_Lab_2\Ex2\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "lab2_ex2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\DELL\Documents\_PROJECTS\GitHub\CO3010_STM32_LABs\CO3010_STM32_Lab_2\Ex2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab2_ex2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
