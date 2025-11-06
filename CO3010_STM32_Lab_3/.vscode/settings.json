@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tex": "latex",
+        "software_timer.h": "c",
+        "button.h": "c"
+    }
+}
