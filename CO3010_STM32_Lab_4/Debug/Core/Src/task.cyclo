@@ -1,0 +1,3 @@
+../Core/Src/task.c:9:6:get3ButtonInput	1
+../Core/Src/task.c:16:6:statusLED	1
+../Core/Src/task.c:21:6:decreaseCounter	3

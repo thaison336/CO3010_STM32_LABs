@@ -1,0 +1,12 @@
+../Core/Src/scheduler.c:43:6:initArr	2
+../Core/Src/scheduler.c:54:6:clearData	1
+../Core/Src/scheduler.c:63:9:getFreeIndexArr	2
+../Core/Src/scheduler.c:73:6:deleteIndex	1
+../Core/Src/scheduler.c:80:6:addIndex	9
+../Core/Src/scheduler.c:123:6:SCH_Init	1
+../Core/Src/scheduler.c:131:6:SCH_Update	4
+../Core/Src/scheduler.c:146:6:SCH_Dispatch_Tasks	6
+../Core/Src/scheduler.c:179:10:SCH_Add_Task	2
+../Core/Src/scheduler.c:199:10:SCH_Delete_Task	7
+../Core/Src/scheduler.c:247:6:SCH_Report_Status	1
+../Core/Src/scheduler.c:248:6:SCH_Go_To_Sleep	1
