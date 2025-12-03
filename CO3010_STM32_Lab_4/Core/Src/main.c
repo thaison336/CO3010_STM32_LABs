@@ -77,10 +77,10 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   SCH_Init();
-//  SCH_Add_Task(timerRun, 0, 10);
-  SCH_Add_Task(statusLED, 1000 , 1000);
+//  SCH_Add_Task(timerRun, 0, 1);
+  SCH_Add_Task(statusLED, 0 , 1000);
   SCH_Add_Task(get3ButtonInput, 0, 10);
-  SCH_Add_Task(fsm_traffic_light, 0, 1);           // FSM chính
+  SCH_Add_Task(fsm_traffic_light, 0, 10);           // FSM chính
   SCH_Add_Task(task_update_traffic_light, 0, 1);  // LED giao thông
   SCH_Add_Task(task_countdown, 0 , 1000);
   SCH_Add_Task(task_update_7segment, 0, 1);       // Quét 7-seg
