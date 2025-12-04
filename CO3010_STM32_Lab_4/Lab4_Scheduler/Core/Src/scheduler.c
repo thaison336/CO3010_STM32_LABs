@@ -30,7 +30,7 @@ typedef struct
     int32_t next;
 } Node;
 
-// MUST BE ADJUSTED FOR EACH NEW PROJECT
+// ADJUST FOR EACH NEW PROJECT
 #define SCH_MAX_TASKS 50
 #define NO_TASK_ID 0
 
@@ -79,7 +79,7 @@ void deleteIndex(int32_t idx)
 
 void addIndex(int32_t idx)
 {
-    if (head == -1)
+    if (head == -1) /
     {
         if (arr[idx].data.Delay == 0)
             arr[idx].data.RunMe = 1;
@@ -100,7 +100,7 @@ void addIndex(int32_t idx)
 
             arr[idx].next = curr;
 
-            if (prev == -1)
+            if (prev == -1) 
                 head = idx;
             else
                 arr[prev].next = idx;
@@ -162,13 +162,13 @@ void SCH_Dispatch_Tasks(void)
 
         arr[curr_idx].next = -1;
 
-        if (task_backup.Period == 0)
+        if (task_backup.Period == 0) // one-shot task
         {
             clearData(curr_idx);
             arr[curr_idx].next = headF;
             headF = curr_idx;
         }
-        else
+        else                        // periodic
         {
             arr[curr_idx].data.Delay = task_backup.Period;
             arr[curr_idx].data.RunMe = 0;
